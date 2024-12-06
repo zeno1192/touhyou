@@ -3,20 +3,20 @@ import { getFirestore, collection, getDocs } from "https://www.gstatic.com/fireb
 import Chart from "https://cdn.jsdelivr.net/npm/chart.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCSJNkXlmr1xToKV6iR_o9Sp3gLsqqd6eA",
-  authDomain: "touhyouproject.firebaseapp.com",
-  projectId: "touhyouproject",
-  storageBucket: "touhyouproject.firebasestorage.app",
-  messagingSenderId: "662619066348",
-  appId: "1:662619066348:web:6924f4dfb8c47de7097ac9"
-}
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// 投票データを取得する関数
+// Firestore から投票データを取得
 async function fetchVotingResults() {
-  const votesCollection = collection(db, "Votes"); // "Votes" コレクションの名前に合わせる
+  const votesCollection = collection(db, "Votes"); // コレクション名に合わせて変更
   const querySnapshot = await getDocs(votesCollection);
 
   const results = {};
@@ -32,7 +32,7 @@ async function fetchVotingResults() {
   return results;
 }
 
-// 棒グラフを描画する関数
+// 棒グラフを描画
 async function renderChart() {
   const results = await fetchVotingResults();
 
@@ -64,5 +64,8 @@ async function renderChart() {
     },
   });
 }
+
+renderChart();
+
 
 renderChart();
