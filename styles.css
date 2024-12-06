@@ -6,7 +6,7 @@ body, h1, h2, p, form, select, button, input {
   font-family: 'Arial', sans-serif;
 }
 
-/* 背景設定 */
+/* 全体の背景と配置 */
 body {
   background: linear-gradient(to bottom, #f1f1f1, #ffffff);
   color: #333;
@@ -15,15 +15,15 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 10px; /* 全体の余白を減らす */
 }
 
 /* タイトル */
 h1 {
-  font-size: 2.5rem;
+  font-size: 2rem; /* タイトルを少し小さく */
   text-align: center;
-  color: #2e7d32; /* 緑色でクリスマス感を演出 */
-  margin-bottom: 30px;
+  color: #2e7d32; /* 緑色 */
+  margin-bottom: 20px;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
@@ -31,14 +31,14 @@ h1 {
 form {
   background: #fff;
   border-radius: 10px;
-  padding: 20px;
+  padding: 15px; /* パディングを少なくして画面を広く使う */
   width: 100%;
-  max-width: 400px;
+  max-width: 400px; /* 最大幅を制限 */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px; /* フォーム内の間隔を調整 */
 }
 
 /* 入力フィールド */
@@ -50,7 +50,7 @@ input[type="email"], input[type="password"] {
   font-size: 1rem;
 }
 
-/* ボタンのスタイル */
+/* ボタン */
 button {
   background: #2e7d32; /* 緑色 */
   color: #fff;
@@ -64,7 +64,7 @@ button {
 }
 
 button:hover {
-  background: #1b5e20; /* 濃い緑色 */
+  background: #1b5e20;
 }
 
 button:disabled {
@@ -74,7 +74,7 @@ button:disabled {
 
 /* エラーメッセージ */
 #error {
-  color: #d32f2f; /* 赤色 */
+  color: #d32f2f;
   font-size: 0.9rem;
   text-align: center;
   margin-top: 10px;
@@ -92,7 +92,6 @@ button:disabled {
   border: none;
   font-size: 1rem;
   cursor: pointer;
-  margin-top: -10px;
   text-decoration: underline;
   text-align: center;
 }
@@ -101,21 +100,27 @@ button:disabled {
   color: #1b5e20;
 }
 
-/* モバイル対応 */
+/* --- レスポンシブデザイン --- */
 @media (max-width: 768px) {
+  body {
+    padding: 5px; /* スマホで余白をさらに減らす */
+  }
+
   h1 {
-    font-size: 2rem;
+    font-size: 1.8rem; /* タイトルを少し小さく */
   }
 
   form {
-    padding: 15px;
+    padding: 10px; /* フォームの余白を減らす */
+    box-shadow: none; /* スマホではシャドウを省略してフラットに */
   }
 
   button {
-    font-size: 0.9rem;
+    font-size: 0.9rem; /* ボタンの文字サイズを調整 */
+    padding: 8px; /* ボタンの内側余白を少なく */
   }
 
   input[type="email"], input[type="password"] {
-    font-size: 0.9rem;
+    font-size: 0.9rem; /* 入力欄の文字サイズを調整 */
   }
 }
