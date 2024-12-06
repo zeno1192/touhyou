@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>投票画面</title>
   <link rel="stylesheet" href="./styles.css">
   <script type="module" src="./vote.js"></script>
@@ -9,6 +11,8 @@
   <h1>投票画面</h1>
   <div id="user-info"></div>
   <div id="balance">残高: -- ポイント</div>
+  
+  <!-- 投票フォーム -->
   <form id="voteForm">
     <label for="team">投票するチームを選択:</label>
     <select id="team" required>
@@ -31,8 +35,24 @@
     <input type="number" id="points" placeholder="ポイント数" required min="1" />
     <button type="submit">投票</button>
   </form>
+  
+  <!-- 投票履歴テーブル -->
+  <h2>投票履歴</h2>
+  <table id="historyTable">
+    <thead>
+      <tr>
+        <th>チーム名</th>
+        <th>投票ポイント</th>
+        <th>日時</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- JavaScriptで履歴を挿入 -->
+    </tbody>
+  </table>
+  
   <button id="logoutButton">ログアウト</button>
-  <div id="message"></div>
 </body>
 </html>
 
