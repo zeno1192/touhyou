@@ -1,12 +1,12 @@
 /* === 全体リセット === */
-body, h1, h2, p, form, button, input, table {
+body, h1, p, form, button, input {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Arial', sans-serif;
 }
 
-/* === 全体のスタイル === */
+/* === ログイン・投票ページの共通スタイル === */
 body {
   background: linear-gradient(to bottom, #f9f9f9, #ffffff);
   color: #333;
@@ -21,12 +21,9 @@ body {
 h1 {
   font-size: 2rem;
   color: #2e7d32;
-  text-align: center;
   margin-bottom: 20px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* === フォーム全体のスタイル === */
 form {
   background: #fff;
   border-radius: 10px;
@@ -35,13 +32,9 @@ form {
   max-width: 400px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
 }
 
-/* === 入力フィールド === */
-input[type="email"], input[type="password"] {
+input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;
@@ -49,7 +42,6 @@ input[type="email"], input[type="password"] {
   font-size: 1rem;
 }
 
-/* === ボタン === */
 button {
   background: #2e7d32;
   color: #fff;
@@ -70,87 +62,3 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* === エラーメッセージ === */
-#error {
-  color: #d32f2f;
-  font-size: 0.9rem;
-  text-align: center;
-  margin-top: 10px;
-}
-
-/* === 切り替えボタン === */
-#toggleButton {
-  background: transparent;
-  color: #2e7d32;
-  border: none;
-  font-size: 1rem;
-  cursor: pointer;
-  text-decoration: underline;
-  text-align: center;
-}
-
-#toggleButton:hover {
-  color: #1b5e20;
-}
-
-/* === テーブルのスタイル === */
-table {
-  width: 100%;
-  max-width: 600px;
-  margin: 20px auto;
-  border-collapse: collapse;
-  text-align: left;
-  background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-thead th {
-  background: #2e7d32;
-  color: #fff;
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: center;
-}
-
-tbody td {
-  padding: 10px;
-  border: 1px solid #ddd;
-  text-align: center;
-}
-
-tbody tr:nth-child(odd) {
-  background: #f9f9f9;
-}
-
-tbody tr:nth-child(even) {
-  background: #ffffff;
-}
-
-/* === レスポンシブ対応 === */
-@media (max-width: 768px) {
-  body {
-    padding: 10px;
-  }
-
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  form {
-    padding: 15px;
-  }
-
-  button {
-    font-size: 0.9rem;
-    padding: 10px;
-  }
-
-  input[type="email"], input[type="password"] {
-    font-size: 0.9rem;
-  }
-
-  table {
-    font-size: 0.9rem;
-  }
-}
