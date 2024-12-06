@@ -1,0 +1,61 @@
+/* === 投票結果ページ全体のスタイル === */
+body {
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  background: #ffffff;
+  color: #333;
+  padding: 20px;
+}
+
+/* === タイトル === */
+h1 {
+  font-size: 2rem;
+  color: #2e7d32;
+  margin-bottom: 20px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* === テーブルのスタイル === */
+table {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+thead th {
+  background: #2e7d32;
+  color: #fff;
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+tbody td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+tbody tr:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+  background: #ffffff;
+}
+
+/* === レスポンシブ対応 === */
+@media (max-width: 768px) {
+  table {
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+}
