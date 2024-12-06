@@ -21,9 +21,17 @@ body {
 h1 {
   font-size: 2rem;
   color: #2e7d32;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   text-align: center;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+/* === ログイン中と残高表示 === */
+#user-info {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+  text-align: center;
 }
 
 /* === フォーム全体のスタイル === */
@@ -62,50 +70,57 @@ select:focus {
   border-color: #2e7d32;
 }
 
-/* === 入力フィールド（ポイント入力） === */
-input[type="number"] {
-  width: 100%;
+/* === 入力欄とボタンを横並びに配置 === */
+.input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* 入力欄とボタンの間のスペース */
+}
+
+.input-group input[type="number"] {
+  flex: 1; /* 横幅は自由に調整 */
+  max-width: 150px; /* 最大幅を設定 */
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #ddd;
   border-radius: 5px;
 }
 
-/* === ボタン === */
-button {
+/* === 投票ボタン === */
+.input-group button {
   background: #2e7d32;
   color: #fff;
   border: none;
-  padding: 12px;
+  padding: 12px 15px;
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-button:hover {
+.input-group button:hover {
   background: #1b5e20;
 }
 
-button:disabled {
+.input-group button:disabled {
   background: #9e9e9e;
   cursor: not-allowed;
 }
 
-/* === 残高表示 === */
-#balance {
-  font-size: 1.2rem;
-  color: #d32f2f;
-  text-align: center;
-  margin-bottom: 15px;
+/* === ログアウトボタン === */
+#logoutButton {
+  background: #2e7d32;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-/* === エラーメッセージ === */
-#error {
-  color: #d32f2f;
-  font-size: 0.9rem;
-  text-align: center;
-  margin-top: 10px;
+#logoutButton:hover {
+  background: #1b5e20;
 }
 
 /* === レスポンシブ対応 === */
@@ -129,5 +144,9 @@ button:disabled {
 
   input, select {
     font-size: 0.9rem;
+  }
+
+  .input-group input[type="number"] {
+    max-width: 100px;
   }
 }
