@@ -5,11 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>投票結果</title>
   <link rel="stylesheet" href="./styles.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js の読み込み -->
 </head>
 <body>
   <h1>投票結果</h1>
-  <canvas id="resultsChart" width="400" height="200"></canvas> <!-- グラフを描画する領域 -->
-  <script type="module" src="./results.js"></script> <!-- スクリプトの読み込み -->
+  <table id="resultsTable">
+    <thead>
+      <tr>
+        <th>チーム名</th>
+        <th>獲得ポイント</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- JavaScriptで結果を挿入 -->
+    </tbody>
+  </table>
+  <script type="module" src="./results.js"></script>
 </body>
 </html>
