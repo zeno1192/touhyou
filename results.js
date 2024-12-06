@@ -2,20 +2,20 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebas
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCSJNkXlmr1xToKV6iR_o9Sp3gLsqqd6eA",
-  authDomain: "touhyouproject.firebaseapp.com",
-  projectId: "touhyouproject",
-  storageBucket: "touhyouproject.firebasestorage.app",
-  messagingSenderId: "662619066348",
-  appId: "1:662619066348:web:6924f4dfb8c47de7097ac9"
-}
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// 投票データを取得する関数
-async function fetchVotingResults() {
-  const votesCollection = collection(db, "Votes"); // コレクション名に合わせて変更
+// 投票データを取得してテーブルに表示
+async function displayResults() {
+  const votesCollection = collection(db, "Votes"); // Firestore コレクション名に合わせる
   const querySnapshot = await getDocs(votesCollection);
 
   const results = {};
@@ -28,13 +28,9 @@ async function fetchVotingResults() {
     results[team] += points;
   });
 
-  return results;
-}
-
-// 結果をテーブルに表示する関数
-async function displayResults() {
-  const results = await fetchVotingResults();
+  // テーブルにデータを挿入
   const tableBody = document.querySelector("#resultsTable tbody");
+  tableBody.innerHTML = ""; // 既存の内容をクリア
 
   Object.entries(results).forEach(([team, points]) => {
     const row = document.createElement("tr");
@@ -51,5 +47,9 @@ async function displayResults() {
     tableBody.appendChild(row);
   });
 }
+
+// 実行
+displayResults();
+
 
 displayResults();
