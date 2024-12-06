@@ -1,5 +1,5 @@
 /* === 全体リセット === */
-body, h1, h2, p, form, button, input {
+body, h1, h2, p, form, button, input, table {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -18,10 +18,9 @@ body {
   padding: 20px;
 }
 
-/* === タイトル === */
 h1 {
   font-size: 2rem;
-  color: #2e7d32; /* 緑色 */
+  color: #2e7d32;
   text-align: center;
   margin-bottom: 20px;
   text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
@@ -71,13 +70,6 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* === グラフ用キャンバスのスタイル === */
-canvas {
-  max-width: 100%;
-  margin: 20px auto;
-  display: block;
-}
-
 /* === エラーメッセージ === */
 #error {
   color: #d32f2f;
@@ -101,26 +93,64 @@ canvas {
   color: #1b5e20;
 }
 
+/* === テーブルのスタイル === */
+table {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto;
+  border-collapse: collapse;
+  text-align: left;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+thead th {
+  background: #2e7d32;
+  color: #fff;
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+tbody td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+tbody tr:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+  background: #ffffff;
+}
+
 /* === レスポンシブ対応 === */
 @media (max-width: 768px) {
   body {
-    padding: 10px; /* スマホでは余白を減らす */
+    padding: 10px;
   }
 
   h1 {
-    font-size: 1.8rem; /* タイトルサイズを調整 */
+    font-size: 1.8rem;
   }
 
   form {
-    padding: 15px; /* フォームの余白を減らす */
+    padding: 15px;
   }
 
   button {
-    font-size: 0.9rem; /* ボタンの文字サイズを調整 */
-    padding: 10px; /* ボタンの内側余白を減らす */
+    font-size: 0.9rem;
+    padding: 10px;
   }
 
   input[type="email"], input[type="password"] {
-    font-size: 0.9rem; /* 入力欄の文字サイズを調整 */
+    font-size: 0.9rem;
+  }
+
+  table {
+    font-size: 0.9rem;
   }
 }
