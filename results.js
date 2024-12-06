@@ -1,6 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
 import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
-import Chart from "https://cdn.jsdelivr.net/npm/chart.js";
 
 const firebaseConfig = {
   apiKey: "YOUR_API_KEY",
@@ -14,7 +13,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-// Firestore から投票データを取得
+// 投票データを取得する関数
 async function fetchVotingResults() {
   const votesCollection = collection(db, "Votes"); // コレクション名に合わせて変更
   const querySnapshot = await getDocs(votesCollection);
@@ -32,40 +31,25 @@ async function fetchVotingResults() {
   return results;
 }
 
-// 棒グラフを描画
-async function renderChart() {
+// 結果をテーブルに表示する関数
+async function displayResults() {
   const results = await fetchVotingResults();
+  const tableBody = document.querySelector("#resultsTable tbody");
 
-  const teams = Object.keys(results);
-  const points = Object.values(results);
+  Object.entries(results).forEach(([team, points]) => {
+    const row = document.createElement("tr");
 
-  const ctx = document.getElementById("resultsChart").getContext("2d");
+    const teamCell = document.createElement("td");
+    teamCell.textContent = team;
 
-  new Chart(ctx, {
-    type: "bar",
-    data: {
-      labels: teams, // チーム名
-      datasets: [
-        {
-          label: "投票ポイント",
-          data: points, // ポイント数
-          backgroundColor: "rgba(75, 192, 192, 0.2)",
-          borderColor: "rgba(75, 192, 192, 1)",
-          borderWidth: 1,
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-        },
-      },
-    },
+    const pointsCell = document.createElement("td");
+    pointsCell.textContent = points;
+
+    row.appendChild(teamCell);
+    row.appendChild(pointsCell);
+
+    tableBody.appendChild(row);
   });
 }
 
-renderChart();
-
-
-renderChart();
+displayResults();
