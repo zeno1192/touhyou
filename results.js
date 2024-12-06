@@ -3,13 +3,13 @@ import { getFirestore, collection, getDocs } from "https://www.gstatic.com/fireb
 
 // Firebase 設定
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_PROJECT_ID.appspot.com",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
-};
+  apiKey: "AIzaSyCSJNkXlmr1xToKV6iR_o9Sp3gLsqqd6eA",
+  authDomain: "touhyouproject.firebaseapp.com",
+  projectId: "touhyouproject",
+  storageBucket: "touhyouproject.firebasestorage.app",
+  messagingSenderId: "662619066348",
+  appId: "1:662619066348:web:6924f4dfb8c47de7097ac9"
+}
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
