@@ -1,47 +1,47 @@
-/* 全体のリセット */
-body, h1, h2, p, form, select, button, input {
+/* === 全体リセット === */
+body, h1, h2, p, form, button, input {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Arial', sans-serif;
 }
 
-/* 全体の背景と配置 */
+/* === 全体のスタイル === */
 body {
-  background: linear-gradient(to bottom, #f1f1f1, #ffffff);
+  background: linear-gradient(to bottom, #f9f9f9, #ffffff);
   color: #333;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 10px; /* 全体の余白を減らす */
+  padding: 20px;
 }
 
-/* タイトル */
+/* === タイトル === */
 h1 {
-  font-size: 2rem; /* タイトルを少し小さく */
-  text-align: center;
+  font-size: 2rem;
   color: #2e7d32; /* 緑色 */
+  text-align: center;
   margin-bottom: 20px;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-/* フォーム全体のスタイル */
+/* === フォーム全体のスタイル === */
 form {
   background: #fff;
   border-radius: 10px;
-  padding: 15px; /* パディングを少なくして画面を広く使う */
+  padding: 20px;
   width: 100%;
-  max-width: 400px; /* 最大幅を制限 */
+  max-width: 400px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
-  gap: 10px; /* フォーム内の間隔を調整 */
+  gap: 15px;
 }
 
-/* 入力フィールド */
+/* === 入力フィールド === */
 input[type="email"], input[type="password"] {
   width: 100%;
   padding: 10px;
@@ -50,17 +50,16 @@ input[type="email"], input[type="password"] {
   font-size: 1rem;
 }
 
-/* ボタン */
+/* === ボタン === */
 button {
-  background: #2e7d32; /* 緑色 */
+  background: #2e7d32;
   color: #fff;
   border: none;
-  padding: 10px;
+  padding: 12px;
   border-radius: 5px;
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s;
-  text-align: center;
 }
 
 button:hover {
@@ -72,7 +71,14 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* エラーメッセージ */
+/* === グラフ用キャンバスのスタイル === */
+canvas {
+  max-width: 100%;
+  margin: 20px auto;
+  display: block;
+}
+
+/* === エラーメッセージ === */
 #error {
   color: #d32f2f;
   font-size: 0.9rem;
@@ -80,12 +86,7 @@ button:disabled {
   margin-top: 10px;
 }
 
-/* 隠す要素 */
-.hidden {
-  display: none;
-}
-
-/* 切り替えボタン */
+/* === 切り替えボタン === */
 #toggleButton {
   background: transparent;
   color: #2e7d32;
@@ -100,33 +101,26 @@ button:disabled {
   color: #1b5e20;
 }
 
-/* --- レスポンシブデザイン --- */
+/* === レスポンシブ対応 === */
 @media (max-width: 768px) {
   body {
-    padding: 5px; /* スマホで余白をさらに減らす */
+    padding: 10px; /* スマホでは余白を減らす */
   }
 
   h1 {
-    font-size: 1.8rem; /* タイトルを少し小さく */
+    font-size: 1.8rem; /* タイトルサイズを調整 */
   }
 
   form {
-    padding: 10px; /* フォームの余白を減らす */
-    box-shadow: none; /* スマホではシャドウを省略してフラットに */
+    padding: 15px; /* フォームの余白を減らす */
   }
 
   button {
     font-size: 0.9rem; /* ボタンの文字サイズを調整 */
-    padding: 8px; /* ボタンの内側余白を少なく */
+    padding: 10px; /* ボタンの内側余白を減らす */
   }
 
   input[type="email"], input[type="password"] {
     font-size: 0.9rem; /* 入力欄の文字サイズを調整 */
   }
-}
-
-canvas {
-  max-width: 100%;
-  margin: 0 auto;
-  display: block;
 }
