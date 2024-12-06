@@ -1,92 +1,156 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-app.js";
-import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-auth.js";
-import { getFirestore, doc, getDoc, updateDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
+import { getFirestore, collection, doc, addDoc, getDocs, deleteDoc, updateDoc, getDoc } from "https://www.gstatic.com/firebasejs/9.17.2/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCSJNkXlmr1xToKV6iR_o9Sp3gLsqqd6eA",
-  authDomain: "touhyouproject.firebaseapp.com",
-  projectId: "touhyouproject",
-  storageBucket: "touhyouproject.firebasestorage.app",
-  messagingSenderId: "662619066348",
-  appId: "1:662619066348:web:6924f4dfb8c47de7097ac9"
-}
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_PROJECT_ID.appspot.com",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
 
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const db = getFirestore(app);
 
-const userInfoDiv = document.getElementById('user-info');
-const balanceDiv = document.getElementById('balance');
-const voteForm = document.getElementById('voteForm');
-const messageDiv = document.getElementById('message');
-const logoutButton = document.getElementById('logoutButton');
+// 現在ログイン中のユーザーID（仮。実際にはFirebase Authenticationから取得）
+const userId = "user1";
 
-// ユーザー情報と残高を取得
-let currentUser = null;
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    currentUser = user;
-    userInfoDiv.textContent = `ログイン中: ${user.email}`;
+let remainingPoints = 100; // 初期ポイント
 
-    const userDoc = await getDoc(doc(db, "Users", user.uid));
-    if (userDoc.exists()) {
-      balanceDiv.textContent = `残高: ${userDoc.data().points} ポイント`;
-    } else {
-      messageDiv.textContent = "ユーザー情報が見つかりません。";
-    }
+// HTML要素の取得
+const userInfo = document.getElementById("user-info");
+const balance = document.getElementById("balance");
+const voteForm = document.getElementById("voteForm");
+const historyTableBody = document.querySelector("#historyTable tbody");
+
+// ユーザー情報を仮に表示（実際には認証情報から取得）
+userInfo.textContent = "ログイン中: kmc2401@kamiyama.ac.jp";
+
+// 残高を画面に表示
+balance.textContent = `残高: ${remainingPoints} ポイント`;
+
+// 投票履歴を保存する関数
+async function saveVoteHistory(team, points) {
+  const userVotesRef = collection(db, `Users/${userId}/Votes`);
+  await addDoc(userVotesRef, {
+    team,
+    points,
+    timestamp: new Date()
+  });
+}
+
+// Firestoreに投票ポイントを加算する関数
+async function addPointsToTeam(team, points) {
+  const teamRef = doc(collection(db, "Votes"), team);
+  const teamSnapshot = await getDoc(teamRef);
+
+  if (teamSnapshot.exists()) {
+    await updateDoc(teamRef, {
+      points: teamSnapshot.data().points + points
+    });
   } else {
-    alert("ログインしてください！");
-    window.location.href = './index.html';
+    await setDoc(teamRef, { points });
   }
-});
+}
 
-// 投票処理
-voteForm.addEventListener('submit', async (e) => {
+// 投票履歴を取得して表示
+async function displayHistory() {
+  historyTableBody.innerHTML = ""; // テーブルをクリア
+
+  const userVotesRef = collection(db, `Users/${userId}/Votes`);
+  const querySnapshot = await getDocs(userVotesRef);
+
+  querySnapshot.forEach((doc) => {
+    const { team, points, timestamp } = doc.data();
+
+    const row = document.createElement("tr");
+
+    // チーム名
+    const teamCell = document.createElement("td");
+    teamCell.textContent = team;
+
+    // 投票ポイント
+    const pointsCell = document.createElement("td");
+    pointsCell.textContent = points;
+
+    // 投票日時
+    const timestampCell = document.createElement("td");
+    timestampCell.textContent = new Date(timestamp.seconds * 1000).toLocaleString();
+
+    // 操作（削除ボタン）
+    const actionCell = document.createElement("td");
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "取り消し";
+    deleteButton.addEventListener("click", async () => {
+      await deleteVote(doc.id, team, points);
+    });
+    actionCell.appendChild(deleteButton);
+
+    row.appendChild(teamCell);
+    row.appendChild(pointsCell);
+    row.appendChild(timestampCell);
+    row.appendChild(actionCell);
+
+    historyTableBody.appendChild(row);
+  });
+}
+
+// 投票を取り消す関数
+async function deleteVote(voteId, team, points) {
+  // 履歴を削除
+  await deleteDoc(doc(db, `Users/${userId}/Votes/${voteId}`));
+
+  // チームポイントを減らす
+  const teamRef = doc(collection(db, "Votes"), team);
+  const teamSnapshot = await getDoc(teamRef);
+
+  if (teamSnapshot.exists()) {
+    await updateDoc(teamRef, {
+      points: Math.max(teamSnapshot.data().points - points, 0) // ポイントを減算
+    });
+  }
+
+  // 残高を更新
+  remainingPoints += points;
+  balance.textContent = `残高: ${remainingPoints} ポイント`;
+
+  // 更新後の履歴を表示
+  await displayHistory();
+}
+
+// フォームの送信イベント処理
+voteForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const team = document.getElementById('team').value;
-  const points = parseInt(document.getElementById('points').value, 10);
 
-  if (!team || isNaN(points) || points <= 0) {
-    messageDiv.textContent = "正しいチームとポイントを入力してください。";
-    return;
-  }
+  const team = document.getElementById("team").value;
+  const points = parseInt(document.getElementById("points").value);
 
-  const userDocRef = doc(db, "Users", currentUser.uid);
-  const userDoc = await getDoc(userDocRef);
-  const currentPoints = userDoc.data().points;
-
-  if (points > currentPoints) {
-    messageDiv.textContent = "残高が不足しています。";
+  if (!team || isNaN(points) || points <= 0 || points > remainingPoints) {
+    alert("正しい値を入力してください。");
     return;
   }
 
   try {
-    await addDoc(collection(db, "Votes"), {
-      team: team,
-      points: points,
-      user: currentUser.email,
-      timestamp: new Date(),
-    });
+    await addPointsToTeam(team, points); // チームポイントを加算
+    await saveVoteHistory(team, points); // ユーザーの投票履歴を保存
 
-    await updateDoc(userDocRef, {
-      points: currentPoints - points,
-    });
+    // 残高を更新
+    remainingPoints -= points;
+    balance.textContent = `残高: ${remainingPoints} ポイント`;
 
-    balanceDiv.textContent = `残高: ${currentPoints - points} ポイント`;
-    messageDiv.textContent = `チーム「${team}」に${points}ポイント投票しました！`;
+    // 履歴を再表示
+    await displayHistory();
+
     voteForm.reset();
   } catch (error) {
-    messageDiv.textContent = `投票に失敗しました: ${error.message}`;
+    console.error("投票に失敗しました:", error);
+    alert("投票に失敗しました。再試行してください。");
   }
 });
 
-// ログアウト処理
-logoutButton.addEventListener('click', async () => {
-  try {
-    await signOut(auth);
-    alert("ログアウトしました！");
-    window.location.href = './index.html';
-  } catch (error) {
-    messageDiv.textContent = `ログアウトに失敗しました: ${error.message}`;
-  }
+// 初回の履歴表示
+displayHistory().catch((error) => {
+  console.error("履歴の取得に失敗しました:", error);
 });
+
