@@ -1,0 +1,121 @@
+/* 全体のリセット */
+body, h1, h2, p, form, select, button, input {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Arial', sans-serif;
+}
+
+/* 背景設定 */
+body {
+  background: linear-gradient(to bottom, #f1f1f1, #ffffff);
+  color: #333;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* タイトル */
+h1 {
+  font-size: 2.5rem;
+  text-align: center;
+  color: #2e7d32; /* 緑色でクリスマス感を演出 */
+  margin-bottom: 30px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* フォーム全体のスタイル */
+form {
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* 入力フィールド */
+input[type="email"], input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+/* ボタンのスタイル */
+button {
+  background: #2e7d32; /* 緑色 */
+  color: #fff;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  text-align: center;
+}
+
+button:hover {
+  background: #1b5e20; /* 濃い緑色 */
+}
+
+button:disabled {
+  background: #9e9e9e;
+  cursor: not-allowed;
+}
+
+/* エラーメッセージ */
+#error {
+  color: #d32f2f; /* 赤色 */
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* 隠す要素 */
+.hidden {
+  display: none;
+}
+
+/* 切り替えボタン */
+#toggleButton {
+  background: transparent;
+  color: #2e7d32;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: -10px;
+  text-decoration: underline;
+  text-align: center;
+}
+
+#toggleButton:hover {
+  color: #1b5e20;
+}
+
+/* モバイル対応 */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+
+  form {
+    padding: 15px;
+  }
+
+  button {
+    font-size: 0.9rem;
+  }
+
+  input[type="email"], input[type="password"] {
+    font-size: 0.9rem;
+  }
+}
